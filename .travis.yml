@@ -1,2 +1,2 @@
 language: csharp
-solution: Checkers.sln
+solution: Checkers/Checkers.sln
