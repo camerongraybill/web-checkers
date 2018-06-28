@@ -6,6 +6,7 @@ matrix:
       mono: none
       install:
         - dotnet restore Checkers/Checkers.sln
+        - cd Checkers/Checkers.Test
         - dotnet add package coverlet.msbuild
         - dotnet tool install -g coveralls.net
       script:
