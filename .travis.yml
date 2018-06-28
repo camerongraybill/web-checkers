@@ -10,5 +10,5 @@ matrix:
         - dotnet restore Checkers/Checkers.sln
         - dotnet build Checkers/
         - dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover Checkers/Checkers.Test/
-        - csmacnz.Coveralls --opencover -i Checkers/Checkers.Test/coverage.opencover.xml
+        - ~/.dotnet/tools/csmacnz.Coveralls --opencover -i Checkers/Checkers.Test/coverage.opencover.xml
     - mono: latest
