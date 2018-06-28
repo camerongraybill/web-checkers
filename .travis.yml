@@ -5,10 +5,10 @@ matrix:
     - dotnet: 2.1
       mono: none
       install:
+        - dotnet restore Checkers/Checkers.sln
         - dotnet add package coverlet.msbuild
         - dotnet tool install -g coveralls.net
       script:
-        - dotnet restore Checkers/Checkers.sln
         - dotnet test /p:CollectCoverage=true
         - coveralls
     - mono: latest
