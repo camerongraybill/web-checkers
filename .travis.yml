@@ -1,2 +1,6 @@
 language: csharp
 solution: Checkers/Checkers.sln
+mono: none
+dotnet: 2.1
+script:
+  - dotnet restore
