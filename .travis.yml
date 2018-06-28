@@ -1,2 +1,14 @@
 language: csharp
 solution: Checkers/Checkers.sln
+matrix:
+  include:
+    - dotnet: 2.1
+      mono: none
+      install:
+        - dotnet tool install -g coveralls.net
+      script:
+        - dotnet restore Checkers/Checkers.sln
+        - dotnet build Checkers/
+        - dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover Checkers/Checkers.Test/
+        - ~/.dotnet/tools/csmacnz.Coveralls --opencover -i Checkers/Checkers.Test/coverage.opencover.xml
+    - mono: latest
