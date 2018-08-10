@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+      "noImplicitAny": true,
+      "noEmitOnError": true,
+      "sourceMap": true,
+      "target": "es5"
+  },
+  "files": [
+      "./*.ts",
+      "./*/*.ts"
+  ],
+  "compileOnSave": true
+}
