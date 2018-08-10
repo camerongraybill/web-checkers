@@ -9,6 +9,6 @@ matrix:
       script:
         - dotnet restore Checkers/Checkers.sln
         - dotnet build Checkers/
-        - dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover Checkers/Checkers.Test/
-        - ~/.dotnet/tools/csmacnz.Coveralls --opencover -i Checkers/Checkers.Test/coverage.opencover.xml --useRelativePaths
+        - dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover Checkers.Test/
+        - ~/.dotnet/tools/csmacnz.Coveralls --opencover -i Checkers.Test/coverage.opencover.xml --useRelativePaths
     - mono: latest
