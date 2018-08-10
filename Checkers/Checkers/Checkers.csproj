@@ -3,10 +3,11 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp2.1</TargetFramework>
 		<DebugType>Full</DebugType>
+		<TypeScriptToolsVersion>2.8</TypeScriptToolsVersion>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.App"/>
+        <PackageReference Include="Microsoft.AspNetCore.App" />
     </ItemGroup>
 
 </Project>
