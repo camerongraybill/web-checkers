@@ -1,7 +1,6 @@
 import *  as signalR from "@aspnet/signalr";
 import {Board} from "./Board";
 import {BoardLocation} from "./BoardLocation";
-import {Piece} from "./Piece";
 import {Action} from "./DataTransferObjects/Action";
 import {StartGame} from "./DataTransferObjects/StartGame";
 import {Turn} from "./DataTransferObjects/Turn";
