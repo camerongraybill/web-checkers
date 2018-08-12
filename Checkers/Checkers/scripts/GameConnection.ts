@@ -1,12 +1,12 @@
 import *  as signalR from "@aspnet/signalr";
-import {Board} from "./Board";
-import {BoardLocation} from "./BoardLocation";
+import {Board} from "./DataTypes/Board";
+import {BoardLocation} from "./DataTypes/BoardLocation";
 import {Action} from "./DataTransferObjects/Action";
 import {StartGame} from "./DataTransferObjects/StartGame";
 import {Turn} from "./DataTransferObjects/Turn";
 import {EndGame} from "./DataTransferObjects/EndGame";
-import {Color} from "./Color";
-import {Move} from "./Move";
+import {Color} from "./DataTypes/Color";
+import {Move} from "./DataTypes/Move";
 
 const GAME_CONNECTION_URL = "/game";
 
