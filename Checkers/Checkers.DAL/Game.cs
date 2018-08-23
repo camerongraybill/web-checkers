@@ -10,12 +10,12 @@ namespace Checkers.Models
 
         public TurnDTO checkTurn()
         {
-
+            return null;
         }
 
         public TurnDTO takeTurn(Move move)
         {
-
+            return null;
         }
 
     }

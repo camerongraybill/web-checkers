@@ -4,9 +4,10 @@ using System.Text;
 
 namespace Checkers.Models
 {
-    class TurnDTO
+    class ActionDTO
     {
-        Board board { get; set; }
-        List<Move> moves { get; set; }
+        Tuple<int, int> moveFrom { get; set; }
+        Tuple<int, int> moveTo { get; set; }
+
     }
 }

@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Checkers.Models
 {
-    class TurnDTO
+    class EndGameDTO
     {
-        Board board { get; set; }
-        List<Move> moves { get; set; }
+        Player winner { get; set; }
+        EndReason reason { get; set; }
     }
 }
