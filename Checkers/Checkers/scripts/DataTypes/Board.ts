@@ -1,5 +1,4 @@
 import {BoardLocation} from "./BoardLocation";
-import {GameConnection} from "./GameConnection";
 
 export class Board {
     public state: BoardLocation[][];
@@ -14,8 +13,8 @@ export class Board {
         }
     }
 
-    public registerConnection(conn: GameConnection) {
-        // Register callbacks into BoardLocations
+    public registerOnMove(conn: Function) {
+        // Register callback for when something moves
     }
 
     public updateFromString(board_str: String): void {

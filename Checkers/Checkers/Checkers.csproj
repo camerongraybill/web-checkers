@@ -1,13 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
-
-    <PropertyGroup>
-        <TargetFramework>netcoreapp2.1</TargetFramework>
-		<DebugType>Full</DebugType>
-		<TypeScriptToolsVersion>2.8</TypeScriptToolsVersion>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.App" />
-    </ItemGroup>
-
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <DebugType>Full</DebugType>
+    <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
 </Project>

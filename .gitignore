@@ -327,3 +327,9 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder
 .mfractor/
+
+
+# Temporary Build Files
+Checkers/Checkers/scripts/**/*.js
+Checkers/Checkers/scripts/**/*.js.map
+Checkers/Checkers/package-lock.json
