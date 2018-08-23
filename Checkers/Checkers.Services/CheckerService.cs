@@ -5,9 +5,9 @@ namespace Checkers.Services
 {
     public class CheckerService
     {
-        public Checker MakeChecker()
+        public Piece MakeChecker()
         {
-            Checker c = new Checker();
+            Piece c = new Piece();
 
             c.X = 5;
             c.Y = 0;

@@ -16,7 +16,7 @@ namespace Checkers.Test.Services
 
             var c = s.MakeChecker();
 
-            Assert.True(c is Checker);
+            Assert.True(c is Piece);
         }
     }
 }
