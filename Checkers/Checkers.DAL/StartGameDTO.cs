@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Checkers.Models
 {
-    class StartGameDTO
+    public class StartGameDTO
     {
         Player player { get; set; }
         Board board { get; set; }

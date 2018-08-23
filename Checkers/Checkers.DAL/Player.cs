@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Checkers.Models
 {
-    enum Player
+    public enum Player
     {
         RED,
         BLACK

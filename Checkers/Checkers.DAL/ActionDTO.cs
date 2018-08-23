@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Checkers.Models
 {
-    class ActionDTO
+    public class ActionDTO
     {
         Tuple<int, int> moveFrom { get; set; }
         Tuple<int, int> moveTo { get; set; }

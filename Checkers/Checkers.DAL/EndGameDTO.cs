@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Checkers.Models
 {
-    class EndGameDTO
+    public class EndGameDTO
     {
         Player winner { get; set; }
         EndReason reason { get; set; }

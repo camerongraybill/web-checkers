@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Checkers.Models
 {
-    enum EndReason
+    public enum EndReason
     {
         GAME_OVER,
         OPPONENT_DISCONNECT
