@@ -6,7 +6,7 @@ namespace Checkers.Models
 {
     public class Game
     {
-        Board board { get; set; }
+        public Board board { get; set; }
 
         public TurnDTO checkTurn()
         {

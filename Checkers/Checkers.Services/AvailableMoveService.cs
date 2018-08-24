@@ -9,7 +9,19 @@ namespace Checkers.Services
     {
         public List<Move> GetMoves(Board board, Player player)
         {
-            return null;
+            //----Get Normal Moves----
+            for (int x = 0; x < 8; x++)
+            {
+                for (int y = 0; y < 8; y++)
+                {
+                    if (board.Get(x, y) != null)
+                    {
+
+                    }
+
+                }
+
+            }
         }
     }
 }

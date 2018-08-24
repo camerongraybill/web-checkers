@@ -6,7 +6,7 @@ namespace Checkers.Models
 {
     public class StartGameDTO
     {
-        Player player { get; set; }
-        Board board { get; set; }
+        public Player player { get; set; }
+        public Board board { get; set; }
     }
 }

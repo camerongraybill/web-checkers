@@ -6,7 +6,7 @@ namespace Checkers.Models
 {
     public class Move
     {
-        Piece Piece { get; set; }
-        Tuple<int, int> MoveTo { get; set; }
+        public Piece Piece { get; set; }
+        public Tuple<int, int> MoveTo { get; set; }
     }
 }

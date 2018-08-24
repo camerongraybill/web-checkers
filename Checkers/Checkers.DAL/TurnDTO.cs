@@ -6,7 +6,7 @@ namespace Checkers.Models
 {
     public class TurnDTO
     {
-        Board board { get; set; }
-        List<Move> moves { get; set; }
+        public Board board { get; set; }
+        public List<Move> moves { get; set; }
     }
 }

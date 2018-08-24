@@ -6,7 +6,7 @@ namespace Checkers.Models
 {
     public class EndGameDTO
     {
-        Player winner { get; set; }
-        EndReason reason { get; set; }
+        public Player winner { get; set; }
+        public EndReason reason { get; set; }
     }
 }
