@@ -55,7 +55,8 @@ namespace Checkers.Test.Services
             while(!t1.ThreadState.Equals(ThreadState.WaitSleepJoin))
             {
                 i++;
-                if (i > 50000)
+                Thread.Sleep(1);
+                if (i > 100)
                 {
                     Assert.True(false, "Hit timeout, thread not waiting");
                 }
