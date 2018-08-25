@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Checkers.Models;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -8,15 +9,33 @@ namespace Checkers.Services
 {
     public class QueueService
     {
+        private static readonly QueueService instance = new QueueService();
+
+        static QueueService()
+        {
+        }
+
+        private QueueService()
+        {
+        }
+
+        public static QueueService Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
+
         private Guid gameId = Guid.Empty;
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public Guid MatchGame()
+        public (Guid, Player) MatchGame()
         {
             bool wasWaiting = false;
 
             //While there's no game, wait
-            if (gameId.Equals(Guid.Empty))
+            while (gameId.Equals(Guid.Empty))
             {
                 wasWaiting = true;
                 gameId = Guid.NewGuid();
@@ -24,15 +43,19 @@ namespace Checkers.Services
             }
 
             Guid myId = gameId;
+            Player myColor;
             if (wasWaiting)
             {
                 gameId = Guid.Empty;
-            } else
+                myColor = Player.BLACK;
+            }
+            else
             {
                 Monitor.Pulse(this);
+                myColor = Player.RED;
             }
 
-            return myId;
+            return (myId, myColor);
         }
     }
 }

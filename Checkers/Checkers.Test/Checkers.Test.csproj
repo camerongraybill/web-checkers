@@ -15,7 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Checkers.DAL\Checkers.Models.csproj" />
+    <ProjectReference Include="..\Checkers.DAL\Checkers.DAL.csproj" />
+    <ProjectReference Include="..\Checkers.Models\Checkers.Models.csproj" />
+    <ProjectReference Include="..\Checkers.Models\Checkers.Models.csproj" />
     <ProjectReference Include="..\Checkers.Services\Checkers.Services.csproj" />
     <ProjectReference Include="..\Checkers\Checkers.csproj" />
   </ItemGroup>

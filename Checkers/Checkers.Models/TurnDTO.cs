@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Checkers.Models
 {
-    public class TurnDTO
+    public class TurnDTO: IOutgoingMessage
     {
         public Board board { get; set; }
         public List<Move> moves { get; set; }
