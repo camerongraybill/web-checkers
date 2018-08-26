@@ -1,4 +1,4 @@
-import {Color} from "./Color";
+import {Color} from "./Enums";
 
 export class Piece {
     public readonly color: Color;
