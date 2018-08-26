@@ -1,23 +1,50 @@
 import {BoardLocation} from "./BoardLocation";
-
 export class Board {
     public state: BoardLocation[][];
-    private readonly dom_location: HTMLDivElement;
+    private _on_move_callback: Function;
+    private last_clicked: BoardLocation|null;
 
-    constructor(div: HTMLDivElement) {
-        this.dom_location = div;
+    constructor() {
         this.state = [];
-        for (let i: number = 0; i < 8; ++i) {
-            this.state[i] = [];
-            for (let j: number = 0; j < 8; ++j) this.state[i][j] = new BoardLocation([i, j]);
+        for (let row: number = 0; row < 8; ++row) {
+            this.state[row] = [];
+            for (let column: number = 0; column < 8; ++column) {
+                this.state[row][column] = new BoardLocation([row, column]);
+                this.state[row][column].registerOnClick(this.onBoardClick);
+            }
+        }
+    }
+    
+    set on_move_callback(value: Function) {
+        this._on_move_callback = value;
+    }
+    
+    static fromString(raw:string): Board {
+        // TODO: This
+        return new Board();
+    }
+
+    private onBoardClick(location: BoardLocation) {
+        // do something because of a click, sometimes call self._on_move_callback
+        if (this.last_clicked != null && this.last_clicked != location) {
+            // Case where the user clicked a different square
+            this._on_move_callback(this.last_clicked, location);
+            this.last_clicked = null;
+        } else if (this.last_clicked != null) {
+            // Case where the user clicked the same square
+            this.last_clicked.highlighted = false;
+            this.last_clicked = null;
+        } else {
+            // Case where the user clicked a square that was not highlighted
+            this.last_clicked = location;
+            this.last_clicked.highlighted = true;
         }
     }
 
-    public registerOnMove(conn: Function) {
-        // Register callback for when something moves
-    }
-
-    public updateFromString(board_str: String): void {
-
+    public updateFromOtherBoard(new_board: Board): void {
+        for (let row: number = 0; row < 8; ++row) {
+            for (let column: number = 0; column < 8; ++column)
+                this.state[row][column].value = new_board.state[row][column].value;
+        }
     }
 }

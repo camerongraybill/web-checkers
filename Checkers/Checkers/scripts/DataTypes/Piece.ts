@@ -8,4 +8,9 @@ export class Piece {
         this.color = color;
         this.promoted = is_promoted;
     }
+    
+    get asHTML(): string {
+        // TODO: Implement this
+        return "";
+    }
 }

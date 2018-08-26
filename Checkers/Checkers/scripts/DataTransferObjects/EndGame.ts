@@ -8,6 +8,7 @@ export class EndGame {
     }
 
     public static decode(raw: String): EndGame {
+        // TODO: This
         return null
     }
 

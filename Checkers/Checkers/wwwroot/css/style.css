@@ -1,0 +1,464 @@
+body {
+  overflow: hidden;
+  color: white;
+  font-family: Jura, sans-serif;
+}
+
+.code {
+  font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New;
+}
+
+.roboto {
+  font-family: Jura, sans-serif;
+}
+
+.playerColor2 {
+  color: #ff4000;
+}
+
+.playerColorBorder2 {
+  border-color: #ff4000 !important;
+}
+
+.playerColor {
+  color: rgba(0, 255, 255, 1) !important;
+}
+
+.playerColorBorder {
+  border-color: rgba(0, 255, 255, 1) !important;
+}
+
+.blinking {
+  opacity: 1;
+  animation: 0.6s blinkLoop infinite;
+}
+
+@keyframes blinkLoop {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/*     Base Screen Styles (initially hidden)     */
+
+.page {
+  transition: 0.2s ease-in-out;
+  text-align: center;
+}
+
+.hiddenPage {
+  opacity: 0 !important;
+}
+
+.closedPage {
+  display: none !important;
+}
+
+#landingPage {
+  opacity: 1;
+  display: block;
+}
+
+#totalContainer {
+  opacity: 1;
+  display: block;
+}
+
+/*     Logo div styles     */
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.logoTowerChild {
+  text-align: center;
+  padding: 5px;
+}
+
+.checkersLogo {
+
+}
+@media screen and (max-width: 700px) {
+  .checkersLogo {
+    width: 50%;
+    height: 50%;
+  }
+}
+
+#logoLine1 {
+  color: #ff4000;
+  margin-bottom: -45px;
+  opacity: 0;
+}
+
+#logoLine2 {
+  line-height: 0em;
+  font-size: 5em;
+  margin-bottom: 50px;
+}
+@media screen and (max-width: 700px) {
+  #logoLine2 {
+    font-size: 2em;
+  }
+}
+
+.logoDivider {
+  width: 600px;
+  height: 5px;
+  background: #ffffff;
+  padding: 0px !important;
+}
+@media screen and (max-width: 700px) {
+  .logoDivider {
+    width: 90vw;
+  }
+}
+
+.certainHeight {
+  margin-top: 20px;
+}
+
+.standalonePage {
+  width: 600px;
+}
+@media screen and (max-width: 700px) {
+  .standalonePage {
+    width: 90vw;
+  }
+}
+
+.logoSubtext {
+  font-size: 0.7em;
+}
+
+.menuButton {
+  display: block;
+  color: #ffffff;
+  transition: all 0.2s;
+  text-decoration: none; 
+  text-transform: uppercase;
+
+  border-left: 3px solid #ffffff;
+  border-right: 3px solid #ffffff;
+  margin-bottom: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  font-size: 1.2em;
+}
+
+.menuButton:focus, .menuButton:hover {
+  color: #fff;
+  /* background-color: rgba(255, 64, 0, 0.2);*/
+  background-color: rgba(255, 255, 255, 0.1);
+
+  border-left: 30px solid #fff;
+  border-right: 30px solid #fff;
+}
+
+.menuButton:active {
+
+}
+
+.menuTitle {
+  display: block;
+  font-size: 1.2em;
+}
+
+.gameCodeInput {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 0px;
+
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 20px;
+
+  width: calc(100% - 20px);
+  background: transparent;
+  color: #fff;
+
+  font-family: Jura, sans-serif;
+  border: 2px solid white;
+
+  transition: 0.2s ease-in-out;
+}
+
+.gameCodeInput:focus, .gameCodeInput:focus{
+  outline: none;
+  padding-left: 12px;
+  border-left: 10px solid white;
+}
+
+.gameCodeInput::placeholder {
+    color: white;
+    opacity: 0.2;
+}
+
+/*     Container Styles     */
+
+.mainContainer {
+  position: fixed;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: black;
+}
+
+.p1BG {
+  background-color: black
+}
+
+.p2BG {
+  background-color: black
+}
+
+.innerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.statusContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+  width: 100%;
+}
+@media screen and (max-width: 700px) {
+  .statusContainer {
+    flex-direction: column;
+  }
+}
+
+.statusTextRight p {
+  font-size: 1.5em;
+}
+
+.boardContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+  width: 100%;
+}
+
+/*     Arrows on either side of board     */
+
+.arrowContainerRight {
+  margin-left: 70px;
+}
+@media (max-width: 700px) {
+  .arrowContainerRight {
+    display: none;
+  }
+}
+
+.arrowContainerLeft {
+  margin-right: 70px;
+}
+@media (max-width: 700px) {
+  .arrowContainerLeft {
+    display: none;
+  }
+}
+
+.arrow {
+  width: 100px;
+  height: 100px;
+}
+
+.leftArrow {
+  border-right: 2px solid;
+  border-bottom: 2px solid;
+  transform: rotate(-45deg);
+}
+
+.rightArrow {
+  border-right: 2px solid;
+  border-bottom: 2px solid;
+  transform: rotate(135deg);
+}
+
+/*     Brackets on either side of board     */
+
+.bracket {
+  width: 40px; /* 40 px normal */
+  height: 40vh;
+
+  /* box-shadow:0 0 70px rgba(255,255,255,0.1);*/
+}
+@media (max-width: 700px) {
+  .bracket {
+    display: none;
+  }
+}
+
+.leftBracket {
+  margin-right: 100px;
+  border-left: 2px solid white;
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+}
+
+.rightBracket {
+  margin-left: 100px;
+  border-right: 2px solid white;
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+}
+
+/*     Team name displayed under board     */
+
+.nameContainer {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.nameTeam p {
+  margin-bottom: 0;
+  font-size: 20px;
+}
+
+
+/*     Board Styles     */
+
+.boardContainer {
+  /* width:60vh; */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.board {
+  height: 70%;
+
+  /* border: 2px solid white; */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.boardRow {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.boardSquare {
+  width: 50px;
+  height: 50px;
+}
+@media screen and (max-width: 700px) {
+  .boardSquare {
+    width: 8vw;
+    height: 8vw;
+  }
+}
+
+.whiteSquare {
+   background: rgba(255,255,255,0.2);
+  /* box-sizing: border-box;
+  border: 1px solid rgba(255,255,255,0.5);*/
+}
+
+.blackSquare {
+  /* background: rgba(255,255,255,0.5); 
+  box-sizing: border-box;
+  border: 1px solid rgba(255,255,255,0.8);*/
+}
+
+.blackSquare:hover {
+  /* border: 1px solid rgba(255,255,255,1); */
+}
+
+.availableSquare {
+  /* box-shadow: inset 0 0 10px rgba(255,255,255,0.2); */
+  transition: 0.2s ease-in-out;
+  box-shadow: inset 0 0 20px rgba(255,255,255,0.8);;
+}
+
+.availableSquare:hover {
+  /* box-shadow: inset 0 0 20px rgba(255,255,255,0.2); */
+  box-shadow: inset 0 0 20px rgba(255,255,255,1);;
+}
+
+.boardChecker {
+  top: 0;
+  left: 0;
+
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  position: absolute;
+  border: 2px solid white;
+  cursor: pointer;
+  transition: 0s ease-in-out;
+}
+
+.boardChecker:hover {
+  transform: scale(1.6);
+}
+
+.killedPiece {
+  display: none;
+}
+
+.whiteChecker{
+  border-color: rgba(255, 68, 0, 1) !important;
+  box-shadow: 0 0 1px 0px rgba(255, 68, 0, 1) inset, 0 0 1px 0px rgba(255, 68, 0, 1);
+}
+
+.blackChecker{
+  border-color: rgba(0, 255, 255, 1) !important;
+  box-shadow: 0 0 1px 0px rgba(0, 255, 255, 1) inset, 0 0 1px 0px rgba(0, 255, 255, 1);
+}
+
+.whiteKing{
+  background-color: rgba(255, 68, 0, 1) !important;
+}
+
+.blackKing{
+  background-color: rgba(0, 255, 255, 1) !important;
+}
+
+.activePiece {
+  border-color: white !important;
+  box-shadow: 0 0 1px 0px rgba(255, 255, 255, 1) inset, 0 0 1px 0px rgba(255, 255, 255, 1) !important;
+}
+
+/*     Debug Styles     */
+
+.debugContainer {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 999;
+}

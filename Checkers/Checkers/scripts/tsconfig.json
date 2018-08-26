@@ -5,9 +5,17 @@
       "sourceMap": true,
       "target": "es5"
   },
-  "include": [
-      "./**.ts",
-      "./**/**.ts"
-  ],
-  "compileOnSave": true
+  "files": [
+    "./index.ts",
+    "./GameConnection.ts",
+    "./DataTypes/Board.ts",
+    "./DataTypes/BoardLocation.ts",
+    "./DataTypes/Enums.ts",
+    "./DataTypes/Move.ts",
+    "./DataTypes/Piece.ts",
+    "./DataTransferObjects/Action.ts",
+    "./DataTransferObjects/EndGame.ts",
+    "./DataTransferObjects/StartGame.ts",
+    "./DataTransferObjects/Turn.ts"
+  ]
 }

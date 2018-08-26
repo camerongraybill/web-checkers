@@ -8,6 +8,7 @@ export class Action {
     }
 
     public encode(): string {
+        // TODO: This
         return "";
     }
 }

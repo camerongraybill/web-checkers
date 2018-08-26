@@ -1,14 +1,15 @@
 export class Turn {
-    public readonly raw_board: String;
-    public readonly raw_moves: String[];
+    public readonly raw_board: string;
+    public readonly raw_moves: string[];
 
-    constructor(raw_board: String, raw_moves: String[]) {
+    constructor(raw_board: string, raw_moves: string[]) {
         this.raw_board = raw_board;
         this.raw_moves = raw_moves;
     }
 
 
-    public static decode(raw: String): Turn {
+    public static decode(raw: string): Turn {
+        // TODO: This
         return null
     }
 }
