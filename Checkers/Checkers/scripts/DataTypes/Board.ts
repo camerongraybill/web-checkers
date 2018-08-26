@@ -9,7 +9,7 @@ export class Board {
         this.state = [];
         for (let i: number = 0; i < 8; ++i) {
             this.state[i] = [];
-            for (let j: number = 0; j < 8; ++j) this.state[i][j] = new BoardLocation([i,j]);
+            for (let j: number = 0; j < 8; ++j) this.state[i][j] = new BoardLocation([i, j]);
         }
     }
 

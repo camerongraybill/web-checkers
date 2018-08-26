@@ -11,7 +11,7 @@ export class BoardLocation {
         this.location = location;
     }
 
-    set dom_location(value:HTMLDivElement) {
+    set dom_location(value: HTMLDivElement) {
         this._dom_location = value;
     }
 
@@ -20,12 +20,7 @@ export class BoardLocation {
         this._value = value;
     }
 
-    set highlighted(value: boolean) {
-        // Update Div here
-        this._highlighted = value;
-    }
-
-    public registerOnClick(callback:Function): void {
+    public registerOnClick(callback: Function): void {
 
     }
 

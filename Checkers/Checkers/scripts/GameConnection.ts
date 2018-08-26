@@ -5,7 +5,7 @@ import {Action} from "./DataTransferObjects/Action";
 import {StartGame} from "./DataTransferObjects/StartGame";
 import {Turn} from "./DataTransferObjects/Turn";
 import {EndGame} from "./DataTransferObjects/EndGame";
-import {Color} from "./DataTypes/Color";
+import {Color, GameEndReason} from "./DataTypes/Enums";
 import {Move} from "./DataTypes/Move";
 
 const GAME_CONNECTION_URL = "/game";
@@ -33,6 +33,8 @@ export class GameConnection {
 
     private on_game_end(data: EndGame): void {
         // Do something with the winner and reason
+        const end_reason: GameEndReason = data.reason;
+        const winner: Color = data.winner;
 
     }
 
@@ -49,7 +51,7 @@ export class GameConnection {
 
     }
 
-    public sendMove(from: BoardLocation, to: BoardLocation): void {
+    private sendMove(from: BoardLocation, to: BoardLocation): void {
         const item = new Action(from.location, to.location);
         this.connection.send("onMove", (new Action(from.location, to.location)).encode());
     }
