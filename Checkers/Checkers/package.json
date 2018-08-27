@@ -8,6 +8,7 @@
     "del": "2.2.0",
     "gulp": "3.9.0",
     "tsify": "^4.0.0",
+    "tslint": "^5.11.0",
     "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
