@@ -1,5 +1,14 @@
 import {BoardLocation} from "./BoardLocation";
 export class Board {
+
+    set on_move_callback(value: Function) {
+        this._on_move_callback = value;
+    }
+
+    public static fromString(raw: string): Board {
+        // TODO: This
+        return new Board();
+    }
     public state: BoardLocation[][];
     private _on_move_callback: Function;
     private last_clicked: BoardLocation|null;
@@ -14,14 +23,13 @@ export class Board {
             }
         }
     }
-    
-    set on_move_callback(value: Function) {
-        this._on_move_callback = value;
-    }
-    
-    static fromString(raw:string): Board {
-        // TODO: This
-        return new Board();
+
+    public updateFromOtherBoard(new_board: Board): void {
+        for (let row: number = 0; row < 8; ++row) {
+            for (let column: number = 0; column < 8; ++column) {
+                this.state[row][column].value = new_board.state[row][column].value;
+            }
+        }
     }
 
     private onBoardClick(location: BoardLocation) {
@@ -38,13 +46,6 @@ export class Board {
             // Case where the user clicked a square that was not highlighted
             this.last_clicked = location;
             this.last_clicked.highlighted = true;
-        }
-    }
-
-    public updateFromOtherBoard(new_board: Board): void {
-        for (let row: number = 0; row < 8; ++row) {
-            for (let column: number = 0; column < 8; ++column)
-                this.state[row][column].value = new_board.state[row][column].value;
         }
     }
 }
