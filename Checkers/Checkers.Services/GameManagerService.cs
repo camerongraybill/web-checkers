@@ -11,7 +11,7 @@ namespace Checkers.Services
 
         public static StartGameDTO StartGame(Guid gameId, Player player)
         {
-            Game game = GameRepository.Instance.get(gameId);
+            Game game = GameRepository.Instance.getGame(gameId);
             return new StartGameDTO()
             {
                 board = game.board,
@@ -28,7 +28,7 @@ namespace Checkers.Services
         /// <returns></returns>
         public static IOutgoingMessage StartTurn(Guid gameId, Player player)
         {
-            Game game = GameRepository.Instance.get(gameId);
+            Game game = GameRepository.Instance.getGame(gameId);
 
             if (AvailableMoveService.IsGameOver(game.board))
             {
@@ -61,7 +61,7 @@ namespace Checkers.Services
         /// <returns></returns>
         public static IOutgoingMessage TakeTurn(Guid gameId, ActionDTO action)
         {
-            Game game = GameRepository.Instance.get(gameId);
+            Game game = GameRepository.Instance.getGame(gameId);
             Move move = new Move()
             {
                 MoveTo = action.moveTo,

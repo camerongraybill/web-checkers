@@ -159,10 +159,10 @@ namespace Checkers.Services
 
         public static bool IsGameOver(Board board)
         {
-            return board.Pieces.FindAll(x => x.Player == Player.RED).Count == 0 ||
-                board.Pieces.FindAll(x => x.Player == Player.BLACK).Count == 0;
+            return board.Pieces.FindAll(x => x?.Player == Player.RED).Count == 0 ||
+                board.Pieces.FindAll(x => x?.Player == Player.BLACK).Count == 0;
         }
-
+        
         /// <summary>
         /// Returns the winner if there is one. If there is no winner it returns black.
         /// </summary>
@@ -170,7 +170,7 @@ namespace Checkers.Services
         /// <returns></returns>
         public static Player GetWinner(Board board)
         {
-            return board.Pieces.FindAll(x => x.Player == Player.RED).Count == 0 ? Player.RED : Player.BLACK;
+            return board.Pieces.FindAll(x => x?.Player == Player.RED).Count == 0 ? Player.BLACK : Player.RED;
         }
 
     }

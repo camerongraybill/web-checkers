@@ -23,23 +23,35 @@ namespace Checkers.DAL
             }
         }
 
-        private static Dictionary<Guid, Game> store = new Dictionary<Guid, Game>();
+        private static Dictionary<Guid, Game> gameStore = new Dictionary<Guid, Game>();
+        private static Dictionary<String, (Guid, Player)> userStore = new Dictionary<String, (Guid, Player)>();
+
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public Game get(Guid gameId)
+        public Game getGame(Guid gameId)
         {
-            if (!store.ContainsKey(gameId))
+            if (!gameStore.ContainsKey(gameId))
             {
-                store[gameId] = Game.CreateStartingGame();
+                gameStore[gameId] = Game.CreateStartingGame();
             }
 
-            return store[gameId];
+            return gameStore[gameId];
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void update(Guid gameId, Game game)
         {
-            store[gameId] = game;
+            gameStore[gameId] = game;
+        }
+
+        public (Guid, Player) getUser(string userId)
+        {
+            return userStore[userId];
+        }
+
+        public void addUser(string userId, Guid gameId, Player player)
+        {
+            userStore[userId] = (gameId, player);
         }
 
     }
