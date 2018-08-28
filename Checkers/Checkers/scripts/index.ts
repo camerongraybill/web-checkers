@@ -1,10 +1,22 @@
-import {GameConnection} from "./GameConnection";
+import $ = require("jquery");
 import {Board} from "./DataTypes/Board";
+import {GameConnection} from "./GameConnection";
 
-const my_board = new Board(document.querySelector("#BoardDiv") as HTMLDivElement);
+$(() => {
+    const my_board = new Board();
+    for (let row: number = 0; row < 8; ++row) {
+        for (let column: number = 0; column < 8; ++column) {
+            my_board.state[row][column].dom_location = document.querySelector(("#Location" + row + "x" + column) as string) as HTMLDivElement;
+        }
+    }
 
-for (let i: number = 0; i < 8; ++i)
-    for (let j: number = 0; j < 8; ++j)
-        my_board.state[i][j].dom_location = document.querySelector(("#Location" + i + "x" + j) as string) as HTMLDivElement;
+    function StartGame() {
 
-const connection = new GameConnection(my_board);
+        const connection = new GameConnection(my_board);
+        connection.start();
+        console.log(my_board);
+    }
+
+    $("#landingPage>a").on("click", StartGame);
+
+});

@@ -1,23 +1,116 @@
 import {BoardLocation} from "./BoardLocation";
+import {Move} from "./Move";
+import {Piece} from "./Piece";
+import {Color} from "./Enums";
 
 export class Board {
-    public state: BoardLocation[][];
-    private readonly dom_location: HTMLDivElement;
+    get legal_moves(): Move[] {
+        return this._legal_moves;
+    }
 
-    constructor(div: HTMLDivElement) {
-        this.dom_location = div;
+    set legal_moves(value: Move[]) {
+        this._legal_moves = value;
+        this.clearHighlights();
+        this.highlightLegalStarts();
+    }
+
+    set on_move_callback(value: Function) {
+        this._on_move_callback = value;
+    }
+
+    public static fromJSON(board: any): Board {
+        const new_board = new Board();
+        board.Pieces.filter((board_location: any) => board_location).forEach((board_location: any) => {
+            new_board.state[board_location.Location.Item2][board_location.Location.Item1].value = new Piece(board_location.Player, board_location.IsKing);
+        });
+        return new_board;
+    }
+
+    public state: BoardLocation[][];
+    private _legal_moves: Move[] = [];
+    private _on_move_callback: Function;
+    private selected_piece: BoardLocation | null = null;
+
+    constructor() {
         this.state = [];
-        for (let i: number = 0; i < 8; ++i) {
-            this.state[i] = [];
-            for (let j: number = 0; j < 8; ++j) this.state[i][j] = new BoardLocation([i, j]);
+        for (let x: number = 0; x < 8; ++x)
+            this.state[x] = [];
+        for (let row: number = 0; row < 8; ++row) {
+            for (let column: number = 0; column < 8; ++column) {
+                this.state[column][row] = new BoardLocation([row, column]);
+                this.state[column][row].registerOnClick((clicked_location: BoardLocation) => this.onBoardClick(clicked_location));
+            }
         }
     }
 
-    public registerOnMove(conn: Function) {
-        // Register callback for when something moves
+    public updateFromOtherBoard(new_board: Board): void {
+        for (let row: number = 0; row < 8; ++row) {
+            for (let column: number = 0; column < 8; ++column) {
+                this.state[column][row].value = new_board.state[column][row].value;
+            }
+        }
     }
 
-    public updateFromString(board_str: String): void {
+    private clearHighlights() {
+        for (let row: number = 0; row < 8; ++row) {
+            for (let column: number = 0; column < 8; ++column) {
+                this.state[row][column].highlighted = false;
+            }
+        }
+    }
 
+    private highlightLegalStarts() {
+        this._legal_moves.map((item: Move) => item.source).forEach((item: BoardLocation) => item.highlighted = true);
+    }
+
+    private onBoardClick(clicked_location: BoardLocation) {
+        // do something because of a click, sometimes call self._on_move_callback
+        if (this.selected_piece !== null) {
+            // There is already a piece selected
+            if (this.selected_piece === clicked_location) {
+                // Picked the same piece to deselect it
+                this.selected_piece.selected = false;
+                this.selected_piece = null;
+                this.clearHighlights();
+                this.highlightLegalStarts();
+            } else {
+                // Different piece is selected
+                if (this._legal_moves
+                    .filter((item: Move) => item.source === this.selected_piece)
+                    .map((item: Move) => item.destination).indexOf(clicked_location) !== -1) {
+                    // This is a legal move to move to
+                    this._on_move_callback(this.selected_piece, clicked_location);
+                    if (Math.abs(this.selected_piece.location[0] - clicked_location.location[0]) === 2) {
+                        // It was a jump so remove the jumped piece
+                        this.state[(this.selected_piece.location[1] + clicked_location.location[1]) / 2]
+                            [(this.selected_piece.location[0] + clicked_location.location[0]) / 2].value = null;
+                    }
+                    // Promote the piece if need be
+                    if (clicked_location.location[1] == 0 && this.selected_piece.value.color == Color.RED)
+                        this.selected_piece.value.promoted = true;
+                    else if (clicked_location.location[1] == 7 && this.selected_piece.value.color == Color.BLACK)
+                        this.selected_piece.value.promoted = true;
+                    
+                    // Move the piece
+                    clicked_location.value = this.selected_piece.value;
+                    // Null out the moved from location
+                    this.selected_piece.value = null;
+                    this.selected_piece = null;
+                    this.clearHighlights();
+                }
+            }
+        } else {
+            // There is no piece selected
+            if (this._legal_moves.map((item: Move) => item.source).indexOf(clicked_location) !== -1) {
+                // If it is a valid starting piece
+                this.clearHighlights();
+                this.selected_piece = clicked_location;
+                // Highlight possible destinations
+                this._legal_moves
+                    .filter((item: Move) => item.source === this.selected_piece)
+                    .map((item: Move) => item.destination)
+                    .forEach((item: BoardLocation) => item.highlighted = true);
+            }
+        }
     }
 }

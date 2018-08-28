@@ -6,5 +6,12 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>11.0.2</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Checkers.Models\Checkers.Models.csproj" />
+    <ProjectReference Include="..\Checkers.Services\Checkers.Services.csproj" />
   </ItemGroup>
 </Project>

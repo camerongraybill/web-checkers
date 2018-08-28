@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="checkers!">
+
+    <meta name="theme-color" content="#161616"/>
+    <!--<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />-->
+
+    <title>Ducks Checkers</title>
+
+    <!--     jQuery     -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.theme.min.css">
+    <script src="js/jquery-ui.min.js"></script>
+
+    <!--     Web Fonts     -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Jura:700" rel="stylesheet">
+
+    <!--     Custom Styles     -->
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+<body>
+
+
+<div id="bgDiv" class="mainContainer">
+
+    <div id="endPage" class="standalonePage innerContainer page hiddenPage closedPage">
+        <p class="menuTitle">Game Over<span class="blinking">_</span></p>
+        <p class="menuTitle"><span id="oEnd">***</span></p>
+        <a class="menuButton" href="#" onClick="window.location.reload()">Back to Home</a>
+    </div>
+
+    <div id="totalContainer" class="innerContainer">
+        <div id="logoPage" class="page logoContainer">
+            <div class="logoTowerChild"><img src="images/checkers_logo.png" class="checkersLogo"/></div>
+            <div class="logoTowerChild roboto"><p id="logoLine2">DUCKS CHECKERS</p></div>
+            <div class="logoTowerChild roboto"><p id="logoLine3">0.0.1-rc</p></div>
+            <div class="logoTowerChild logoDivider"></div>
+        </div>
+
+        <div id="landingPage" class="certainHeight page">
+            <a class="menuButton" href="#">Play</a>
+        </div>
+
+        <div id="publicMatchPage" class="certainHeight page hiddenPage closedPage">
+            <p class="menuTitle">Public Match</p>
+            <p class="menuTitle"><em>You are now in a public match queue<span class="blinking">_</span></em></p>
+            <a class="menuButton" href="#" onClick="window.location.reload()">Back to Home</a>
+        </div>
+
+    </div>
+
+    <div id="gamePage" class="innerContainer page hiddenPage closedPage">
+        <div class="statusContainer">
+        </div>
+        <div class="boardContainer">
+            <div class="arrowContainerLeft">
+                <div class="arrow leftArrow playerColorBorder"></div>
+            </div>
+            <div class="boardContainer">
+                <div id="board" class="board">
+
+                    <div class="boardRow">
+                        <div id="Location0x0" class="boardSquare whiteSquare"></div>
+                        <div id="Location0x1" class="boardSquare blackSquare"></div>
+                        <div id="Location0x2" class="boardSquare whiteSquare"></div>
+                        <div id="Location0x3" class="boardSquare blackSquare"></div>
+                        <div id="Location0x4" class="boardSquare whiteSquare"></div>
+                        <div id="Location0x5" class="boardSquare blackSquare"></div>
+                        <div id="Location0x6" class="boardSquare whiteSquare"></div>
+                        <div id="Location0x7" class="boardSquare blackSquare"></div>
+                    </div>
+
+                    <div class="boardRow">
+                        <div id="Location1x0" class="boardSquare blackSquare"></div>
+                        <div id="Location1x1" class="boardSquare whiteSquare"></div>
+                        <div id="Location1x2" class="boardSquare blackSquare"></div>
+                        <div id="Location1x3" class="boardSquare whiteSquare"></div>
+                        <div id="Location1x4" class="boardSquare blackSquare"></div>
+                        <div id="Location1x5" class="boardSquare whiteSquare"></div>
+                        <div id="Location1x6" class="boardSquare blackSquare"></div>
+                        <div id="Location1x7" class="boardSquare whiteSquare"></div>
+                    </div>
+
+                    <div class="boardRow">
+                        <div id="Location2x0" class="boardSquare whiteSquare"></div>
+                        <div id="Location2x1" class="boardSquare blackSquare"></div>
+                        <div id="Location2x2" class="boardSquare whiteSquare"></div>
+                        <div id="Location2x3" class="boardSquare blackSquare"></div>
+                        <div id="Location2x4" class="boardSquare whiteSquare"></div>
+                        <div id="Location2x5" class="boardSquare blackSquare"></div>
+                        <div id="Location2x6" class="boardSquare whiteSquare"></div>
+                        <div id="Location2x7" class="boardSquare blackSquare"></div>
+                    </div>
+
+                    <div class="boardRow">
+                        <div id="Location3x0" class="boardSquare blackSquare"></div>
+                        <div id="Location3x1" class="boardSquare whiteSquare"></div>
+                        <div id="Location3x2" class="boardSquare blackSquare"></div>
+                        <div id="Location3x3" class="boardSquare whiteSquare"></div>
+                        <div id="Location3x4" class="boardSquare blackSquare"></div>
+                        <div id="Location3x5" class="boardSquare whiteSquare"></div>
+                        <div id="Location3x6" class="boardSquare blackSquare"></div>
+                        <div id="Location3x7" class="boardSquare whiteSquare"></div>
+                    </div>
+
+                    <div class="boardRow">
+                        <div id="Location4x0" class="boardSquare whiteSquare"></div>
+                        <div id="Location4x1" class="boardSquare blackSquare"></div>
+                        <div id="Location4x2" class="boardSquare whiteSquare"></div>
+                        <div id="Location4x3" class="boardSquare blackSquare"></div>
+                        <div id="Location4x4" class="boardSquare whiteSquare"></div>
+                        <div id="Location4x5" class="boardSquare blackSquare"></div>
+                        <div id="Location4x6" class="boardSquare whiteSquare"></div>
+                        <div id="Location4x7" class="boardSquare blackSquare"></div>
+                    </div>
+
+                    <div class="boardRow">
+                        <div id="Location5x0" class="boardSquare blackSquare"></div>
+                        <div id="Location5x1" class="boardSquare whiteSquare"></div>
+                        <div id="Location5x2" class="boardSquare blackSquare"></div>
+                        <div id="Location5x3" class="boardSquare whiteSquare"></div>
+                        <div id="Location5x4" class="boardSquare blackSquare"></div>
+                        <div id="Location5x5" class="boardSquare whiteSquare"></div>
+                        <div id="Location5x6" class="boardSquare blackSquare"></div>
+                        <div id="Location5x7" class="boardSquare whiteSquare"></div>
+                    </div>
+
+                    <div class="boardRow">
+                        <div id="Location6x0" class="boardSquare whiteSquare"></div>
+                        <div id="Location6x1" class="boardSquare blackSquare"></div>
+                        <div id="Location6x2" class="boardSquare whiteSquare"></div>
+                        <div id="Location6x3" class="boardSquare blackSquare"></div>
+                        <div id="Location6x4" class="boardSquare whiteSquare"></div>
+                        <div id="Location6x5" class="boardSquare blackSquare"></div>
+                        <div id="Location6x6" class="boardSquare whiteSquare"></div>
+                        <div id="Location6x7" class="boardSquare blackSquare"></div>
+                    </div>
+
+                    <div class="boardRow">
+                        <div id="Location7x0" class="boardSquare blackSquare"></div>
+                        <div id="Location7x1" class="boardSquare whiteSquare"></div>
+                        <div id="Location7x2" class="boardSquare blackSquare"></div>
+                        <div id="Location7x3" class="boardSquare whiteSquare"></div>
+                        <div id="Location7x4" class="boardSquare blackSquare"></div>
+                        <div id="Location7x5" class="boardSquare whiteSquare"></div>
+                        <div id="Location7x6" class="boardSquare blackSquare"></div>
+                        <div id="Location7x7" class="boardSquare whiteSquare"></div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="arrowContainerRight">
+                <div class="arrow rightArrow playerColorBorder"></div>
+            </div>
+
+        </div>
+        <div class="nameContainer">
+            <div class="nameTeam playerColor roboto"><p id="oTeam">RED TEAM</p></div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Custom JS Files  -->
+<script src="js/bundle.js"></script>
+</body>
+</html>

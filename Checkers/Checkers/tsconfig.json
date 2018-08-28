@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+      "noImplicitAny": true,
+      "noEmitOnError": true,
+      "sourceMap": true,
+      "target": "es5"
+  },
+  "files": [
+    "./scripts/index.ts",
+    "./scripts/GameConnection.ts",
+    "./scripts/DataTypes/Board.ts",
+    "./scripts/DataTypes/BoardLocation.ts",
+    "./scripts/DataTypes/Enums.ts",
+    "./scripts/DataTypes/Move.ts",
+    "./scripts/DataTypes/Piece.ts",
+    "./scripts/DataTransferObjects/Action.ts",
+    "./scripts/DataTransferObjects/EndGame.ts",
+    "./scripts/DataTransferObjects/StartGame.ts",
+    "./scripts/DataTransferObjects/Turn.ts"
+  ]
+}

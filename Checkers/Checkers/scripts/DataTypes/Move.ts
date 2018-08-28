@@ -1,7 +1,12 @@
-import {BoardLocation} from "./BoardLocation";
 import {Board} from "./Board";
+import {BoardLocation} from "./BoardLocation";
 
 export class Move {
+
+    public static fromJSON(raw: any, on_board: Board): Move {
+        return new Move(on_board.state[raw.Piece.Location.Item2][raw.Piece.Location.Item1], on_board.state[raw.MoveTo.Item2][raw.MoveTo.Item1]);
+    }
+
     public readonly source: BoardLocation;
     public readonly destination: BoardLocation;
 
@@ -10,7 +15,4 @@ export class Move {
         this.destination = destination;
     }
 
-    public static fromString(raw: String, on_board: Board): Move {
-        return null;
-    }
 }

@@ -1,14 +1,14 @@
 export class Turn {
-    public readonly raw_board: String;
-    public readonly raw_moves: String[];
 
-    constructor(raw_board: String, raw_moves: String[]) {
+    public static decode(raw: string): Turn {
+        const turn_json = JSON.parse(raw);
+        return new Turn(turn_json.board, turn_json.moves);
+    }
+    public readonly raw_board: any;
+    public readonly raw_moves: any[];
+
+    constructor(raw_board: any, raw_moves: any[]) {
         this.raw_board = raw_board;
         this.raw_moves = raw_moves;
-    }
-
-
-    public static decode(raw: String): Turn {
-        return null
     }
 }
