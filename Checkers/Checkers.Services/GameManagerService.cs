@@ -61,13 +61,22 @@ namespace Checkers.Services
         /// <returns></returns>
         public static OutgoingMessage TakeTurn(Guid gameId, ActionDTO action)
         {
+            //---Apply Move---
             Game game = GameRepository.Instance.getGame(gameId);
             Move move = new Move()
             {
                 MoveTo = action.moveTo,
-                Piece = game.board.Get(action.moveTo.Item1, action.moveTo.Item2)
+                Piece = game.board.Get(action.moveFrom.Item1, action.moveFrom.Item2)
             };
 
+            if (!AvailableMoveService.GetMoves(game.board, game.turn).Contains(move))
+            {
+                throw new ArgumentOutOfRangeException("Invalid move");
+            }
+
+            game.board.ApplyMove(move);
+
+            //---Check for Game Over---
             if (AvailableMoveService.IsGameOver(game.board))
             {
                 return new EndGameDTO()
@@ -77,12 +86,7 @@ namespace Checkers.Services
                 };
             }
 
-            if (AvailableMoveService.GetMoves(game.board, game.turn).Contains(move))
-            {
-                throw new ArgumentOutOfRangeException("Invalid move");
-            }
-
-            game.board.ApplyMove(move);
+            //---Check for forced jump moves---
             var jumpMoves = AvailableMoveService.GetJumpMoves(game.board, move.Piece);
 
             if (jumpMoves.Count == 0)

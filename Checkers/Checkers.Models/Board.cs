@@ -24,12 +24,29 @@ namespace Checkers.Models
             var boardPiece = Get(move.Piece.Location.Item1, move.Piece.Location.Item2);
             Debug.Assert(move.Piece.Equals(boardPiece));
 
-
             var loc = move.Piece.Location;
+            var to = move.MoveTo;
+
+            //----Jump Move----
+            if (Math.Abs(loc.Item1 - to.Item1) == 2 &&
+                Math.Abs(loc.Item2 - to.Item2) == 2)
+            {
+                //null the jumped piece
+                Set(loc.Item1 + ((to.Item1 - loc.Item1) / 2), loc.Item2 + ((to.Item2 - loc.Item2) / 2), null);
+            }
+            //null old location
             Set(loc.Item1, loc.Item2, null);
 
-            move.Piece.Location = move.MoveTo;
-            Set(move.MoveTo.Item1, move.MoveTo.Item2, move.Piece);
+            //----Check Kings----
+            if ((move.Piece.Player == Player.BLACK && to.Item2 == 7) ||
+                (move.Piece.Player == Player.RED && to.Item2 == 0))
+            {
+                move.Piece.IsKing = true;
+            }
+
+            //set new location
+            move.Piece.Location = to;
+            Set(to.Item1, to.Item2, move.Piece);
         }
 
         public Piece Get(int x, int y)
