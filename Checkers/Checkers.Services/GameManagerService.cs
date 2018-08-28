@@ -85,7 +85,7 @@ namespace Checkers.Services
                 MoveTo = action.moveTo,
                 Piece = game.board.Get(action.moveFrom.Item1, action.moveFrom.Item2)
             };
-
+            bool isKingBefore = move.Piece.IsKing;
             if (!AvailableMoveService.GetMoves(game.board, game.turn).Contains(move))
             {
                 throw new ArgumentOutOfRangeException("Invalid move");
@@ -107,9 +107,11 @@ namespace Checkers.Services
             var jumpMoves = new List<Move>();
             var to = action.moveTo;
             var loc = action.moveFrom;
+            bool isKingAfter = game.board.Get(to.Item1, to.Item2).IsKing;
 
             if (Math.Abs(loc.Item1 - to.Item1) == 2 &&
-                Math.Abs(loc.Item2 - to.Item2) == 2)
+                Math.Abs(loc.Item2 - to.Item2) == 2 &&
+                !(isKingBefore != isKingAfter))
             {
                 jumpMoves = AvailableMoveService.GetJumpMoves(game.board, game.board.Get(to.Item1, to.Item2));
             }

@@ -136,5 +136,11 @@ namespace Checkers.Test.Services
             Assert.True(((EndGameDTO)actual).winner == Player.BLACK);
         }
 
+        [Fact]
+        public void getUserIDTest()
+        {
+
+        }
+
     }
 }
