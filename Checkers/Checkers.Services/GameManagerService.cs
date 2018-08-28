@@ -59,10 +59,12 @@ namespace Checkers.Services
                 throw new ArgumentOutOfRangeException("It is not " + player.ToString() + "'s Turn.");
             }
 
+            var jumpMoves = AvailableMoveService.GetAllJumpMoves(game.board, player);
+
             return new TurnDTO()
             {
                 board = game.board,
-                moves = AvailableMoveService.GetMoves(game.board, game.turn)
+                moves = jumpMoves.Count != 0 ? jumpMoves : AvailableMoveService.GetMoves(game.board, game.turn)
             };
         }
 

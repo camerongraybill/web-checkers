@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Checkers.Models;
 
@@ -96,8 +97,8 @@ namespace Checkers.Services
                         possibleMoves.Add(Tuple.Create(curLoc.Item1 + x, curLoc.Item2 + y));
 
                         //Jumps
-                        if (curLoc.Item1 + x > 0 && curLoc.Item1 + x < 7  && //If jump piece is in bounds
-                            curLoc.Item2 + y > 0 && curLoc.Item2 + y < 7 )
+                        if (curLoc.Item1 + x > 0 && curLoc.Item1 + x < 7 && //If jump piece is in bounds
+                            curLoc.Item2 + y > 0 && curLoc.Item2 + y < 7)
                         {
                             var jumpPiece = board.Get(curLoc.Item1 + x, curLoc.Item2 + y);
                             if (jumpPiece != null && jumpPiece.Player != move.Piece.Player) //and we already know moveTo is empty
@@ -131,6 +132,14 @@ namespace Checkers.Services
             return possibleMoves.Contains(move.MoveTo);
         }
 
+        public static List<Move> GetAllJumpMoves(Board board, Player player)
+        {
+            return board.Pieces
+                .Where(x => x?.Player == player)
+                .SelectMany(x => GetJumpMoves(board, x))
+                .ToList();
+        }
+
 
         /// <summary>
         /// Returns the mandatory jump moves for a piece
@@ -162,7 +171,7 @@ namespace Checkers.Services
             return board.Pieces.FindAll(x => x?.Player == Player.RED).Count == 0 ||
                 board.Pieces.FindAll(x => x?.Player == Player.BLACK).Count == 0;
         }
-        
+
         /// <summary>
         /// Returns the winner if there is one. If there is no winner it returns black.
         /// </summary>
