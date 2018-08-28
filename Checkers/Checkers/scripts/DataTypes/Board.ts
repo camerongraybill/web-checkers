@@ -28,7 +28,7 @@ export class Board {
     public state: BoardLocation[][];
     private _legal_moves: Move[] = [];
     private _on_move_callback: Function;
-    private last_clicked: BoardLocation | null = null;
+    private selected_piece: BoardLocation | null = null;
 
     constructor() {
         this.state = [];
@@ -61,43 +61,44 @@ export class Board {
         this._legal_moves.map((item: Move) => item.source).forEach((item: BoardLocation) => item.highlighted = true);
     }
 
-    private onBoardClick(location: BoardLocation) {
+    private onBoardClick(clicked_location: BoardLocation) {
         // do something because of a click, sometimes call self._on_move_callback
-        if (this.last_clicked !== null) {
+        if (this.selected_piece !== null) {
             // There is already a piece selected
-            if (this.last_clicked == location) {
+            if (this.selected_piece === clicked_location) {
                 // Picked the same piece to deselect it
-                this.last_clicked.selected = false;
-                this.last_clicked = null;
+                this.selected_piece.selected = false;
+                this.selected_piece = null;
                 this.clearHighlights();
                 this.highlightLegalStarts();
             } else {
                 // Different piece is selected
-                const possible_destinations = this._legal_moves.filter((item: Move) => item.source === this.last_clicked).map((item: Move) => item.destination);
-                if (possible_destinations.indexOf(location) !== -1) {
+                if (this._legal_moves
+                    .filter((item: Move) => item.source === this.selected_piece)
+                    .map((item: Move) => item.destination).indexOf(clicked_location) !== -1) {
                     // This is a legal move to move to
-                    this._on_move_callback(this.last_clicked, location);
-                    if (Math.abs(this.last_clicked.location[0] - location.location[0]) === 2) {
+                    this._on_move_callback(this.selected_piece, clicked_location);
+                    if (Math.abs(this.selected_piece.location[0] - clicked_location.location[0]) === 2) {
                         // It was a jump so remove the jumped piece
-                        this.state[(this.last_clicked.location[0] + ((location.location[0] - this.last_clicked.location[0]) / 2))][(this.last_clicked.location[1] + ((location.location[1] - this.last_clicked.location[1]) / 2))].value = null;
+                        this.state[(this.selected_piece.location[0] + clicked_location.location[0]) / 2]
+                            [(this.selected_piece.location[1] + clicked_location.location[1]) / 2].value = null;
                     }
                     // Move the piece
-                    location.value = this.last_clicked.value;
+                    clicked_location.value = this.selected_piece.value;
                     // Null out the moved from location
-                    this.last_clicked.value = null;
-                    this.last_clicked = null;
+                    this.selected_piece.value = null;
+                    this.selected_piece = null;
                     this.clearHighlights();
                 }
             }
         } else {
             // There is no piece selected
-            this.clearHighlights();
-            const possible_sources = this._legal_moves.map((item: Move) => item.source);
-            if (possible_sources.indexOf(location) !== -1) {
+            if (this._legal_moves.map((item: Move) => item.source).indexOf(clicked_location) !== -1) {
                 // If it is a valid starting piece
-                this.last_clicked = location;
+                this.clearHighlights();
+                this.selected_piece = clicked_location;
                 // Highlight possible destinations
-                this._legal_moves.filter((item: Move) => item.source === this.last_clicked)
+                this._legal_moves.filter((item: Move) => item.source === this.selected_piece)
                     .map((item: Move) => item.destination)
                     .forEach((item: BoardLocation) => item.highlighted = true);
             }
