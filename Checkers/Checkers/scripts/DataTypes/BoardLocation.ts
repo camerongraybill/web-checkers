@@ -12,6 +12,7 @@ export class BoardLocation {
         this._dom_location = $(value);
         this._dom_location.on("click", () => {
             if (this._callback) {
+                console.log(this.location);
                 this._callback(this);
             }
         });
@@ -19,7 +20,7 @@ export class BoardLocation {
 
     set highlighted(value: boolean) {
         this._highlighted = value;
-        this.redraw()
+        this.redraw();
     }
 
     get value(): Piece | null {
@@ -28,7 +29,22 @@ export class BoardLocation {
 
     set value(value: Piece | null) {
         this._value = value;
-        this.redraw()
+        this.redraw();
+    }
+
+    public readonly location: [number, number];
+
+    private _value: Piece | null = null;
+    private _highlighted: boolean = false;
+    private _selected: boolean = false;
+    private _dom_location: JQuery<HTMLDivElement> = $();
+
+    constructor(location: [number, number]) {
+        this.location = location;
+    }
+
+    public registerOnClick(callback: Function): void {
+        this._callback = callback;
     }
 
     private redraw() {
@@ -49,21 +65,6 @@ export class BoardLocation {
         }
 
     }
-
-    public readonly location: [number, number];
-
-    private _value: Piece | null = null;
-    private _highlighted: boolean = false;
-    private _selected: boolean = false;
-    private _dom_location: JQuery<HTMLDivElement> = $();
     private _callback: Function = () => {};
-
-    constructor(location: [number, number]) {
-        this.location = location;
-    }
-
-    public registerOnClick(callback: Function): void {
-        this._callback = callback;
-    }
 
 }

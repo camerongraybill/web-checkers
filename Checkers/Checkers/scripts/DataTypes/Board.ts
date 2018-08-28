@@ -1,6 +1,7 @@
 import {BoardLocation} from "./BoardLocation";
-import {Piece} from "./Piece";
 import {Move} from "./Move";
+import {Piece} from "./Piece";
+import {Color} from "./Enums";
 
 export class Board {
     get legal_moves(): Move[] {
@@ -32,11 +33,12 @@ export class Board {
 
     constructor() {
         this.state = [];
+        for (let x: number = 0; x < 8; ++x)
+            this.state[x] = [];
         for (let row: number = 0; row < 8; ++row) {
-            this.state[row] = [];
             for (let column: number = 0; column < 8; ++column) {
-                this.state[row][column] = new BoardLocation([row, column]);
-                this.state[row][column].registerOnClick((clicked_location: BoardLocation) => this.onBoardClick(clicked_location));
+                this.state[column][row] = new BoardLocation([row, column]);
+                this.state[column][row].registerOnClick((clicked_location: BoardLocation) => this.onBoardClick(clicked_location));
             }
         }
     }
@@ -44,7 +46,7 @@ export class Board {
     public updateFromOtherBoard(new_board: Board): void {
         for (let row: number = 0; row < 8; ++row) {
             for (let column: number = 0; column < 8; ++column) {
-                this.state[row][column].value = new_board.state[row][column].value;
+                this.state[column][row].value = new_board.state[column][row].value;
             }
         }
     }
@@ -80,9 +82,15 @@ export class Board {
                     this._on_move_callback(this.selected_piece, clicked_location);
                     if (Math.abs(this.selected_piece.location[0] - clicked_location.location[0]) === 2) {
                         // It was a jump so remove the jumped piece
-                        this.state[(this.selected_piece.location[0] + clicked_location.location[0]) / 2]
-                            [(this.selected_piece.location[1] + clicked_location.location[1]) / 2].value = null;
+                        this.state[(this.selected_piece.location[1] + clicked_location.location[1]) / 2]
+                            [(this.selected_piece.location[0] + clicked_location.location[0]) / 2].value = null;
                     }
+                    // Promote the piece if need be
+                    if (clicked_location.location[1] == 0 && this.selected_piece.value.color == Color.RED)
+                        this.selected_piece.value.promoted = true;
+                    else if (clicked_location.location[1] == 7 && this.selected_piece.value.color == Color.BLACK)
+                        this.selected_piece.value.promoted = true;
+                    
                     // Move the piece
                     clicked_location.value = this.selected_piece.value;
                     // Null out the moved from location
@@ -98,7 +106,8 @@ export class Board {
                 this.clearHighlights();
                 this.selected_piece = clicked_location;
                 // Highlight possible destinations
-                this._legal_moves.filter((item: Move) => item.source === this.selected_piece)
+                this._legal_moves
+                    .filter((item: Move) => item.source === this.selected_piece)
                     .map((item: Move) => item.destination)
                     .forEach((item: BoardLocation) => item.highlighted = true);
             }

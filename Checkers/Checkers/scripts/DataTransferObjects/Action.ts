@@ -8,6 +8,7 @@ export class Action {
     }
 
     public encode(): string {
-        return JSON.stringify({from: this.from.reverse(), to: this.to.reverse()});
+        console.log(this);
+        return JSON.stringify({from: this.from, to: this.to});
     }
 }

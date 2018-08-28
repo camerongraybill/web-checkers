@@ -1,8 +1,8 @@
 export class StartGame {
 
     public static decode(raw: string): StartGame {
-        let response_json: any = JSON.parse(raw);
-        
+        const response_json: any = JSON.parse(raw);
+
         return new StartGame(response_json.player, response_json.board);
     }
     public readonly color: number;

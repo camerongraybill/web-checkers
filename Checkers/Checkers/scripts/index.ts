@@ -14,6 +14,7 @@ $(() => {
 
         const connection = new GameConnection(my_board);
         connection.start();
+        console.log(my_board);
     }
 
     $("#landingPage>a").on("click", StartGame);

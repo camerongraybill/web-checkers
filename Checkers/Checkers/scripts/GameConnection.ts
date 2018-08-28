@@ -63,7 +63,7 @@ export class GameConnection {
                 case Color.BLACK: return "black";
             }
         })();
-        if (end_reason == GameEndReason.OPPONENT_DISCONNECT) {
+        if (end_reason === GameEndReason.OPPONENT_DISCONNECT) {
             console.log("Your opponent Disconnected");
         }
         $("#oEnd").text(winner_color + " won!");
@@ -74,8 +74,7 @@ export class GameConnection {
     private on_game_start(data: StartGame): void {
         if (this.my_color !== null) {
             console.error("Got game start message when game was already started");
-        }
-        else {
+        } else {
             $("#totalContainer").addClass("hiddenPage closedPage");
             $("#gamePage").removeClass("hiddenPage closedPage");
             const new_board: Board = Board.fromJSON(data.raw_board);
@@ -86,14 +85,14 @@ export class GameConnection {
 
     private on_your_turn(data: Turn): void {
         this.board.updateFromOtherBoard(Board.fromJSON(data.raw_board));
-        const possible_moves = data.raw_moves.map((raw_move_str: any) => Move.fromJSON(raw_move_str, this.board));
-        console.log("CAM RECIEVED:  ", possible_moves);
-        $("#oTeam").addClass("activePlayer");
+        const possible_moves = data.raw_moves
+            .map((raw_move_object: any) => Move.fromJSON(raw_move_object, this.board));
         this.board.legal_moves = possible_moves;
+        $("#oTeam").addClass("activePlayer");
     }
 
     private sendMove(from: BoardLocation, to: BoardLocation): void {
-        this.connection.send("onMove", (new Action(from.location, to.location)).encode());
-        $("#oTeam").removeClass("activePlayer");
+        this.connection.send("onMove", (new Action(from.location, to.location)).encode())
+            .then(() => $("#oTeam").removeClass("activePlayer"));
     }
 }
