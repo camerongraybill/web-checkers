@@ -26,7 +26,7 @@ export class GameConnection {
     private set my_color(value: Color) {
         switch (value) {
             case Color.BLACK:
-                $("#oTeam").text("BLACK TEAM");
+                $("#oTeam").text("BLUE TEAM");
                 break;
             case Color.RED:
                 $("#oTeam").text("RED TEAM");
@@ -74,7 +74,7 @@ export class GameConnection {
             $("#totalContainer").addClass("hiddenPage closedPage");
             $("#gamePage").removeClass("hiddenPage closedPage");
             this.board.updateFromOtherBoard(Board.fromJSON(data.rawBoard));
-            this.innerMyColor = data.color;
+            this.my_color = data.color;
         }
     }
 
