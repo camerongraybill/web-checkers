@@ -46,9 +46,9 @@ namespace Checkers.DAL
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public string getUser(Guid gameId, Player yourColor)
+        public string getUser(Guid gameId, Player userColor)
         {
-            return userStore[(gameId, yourColor)];
+            return userStore[(gameId, userColor)];
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]

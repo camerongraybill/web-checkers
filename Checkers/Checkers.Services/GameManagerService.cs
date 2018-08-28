@@ -20,9 +20,9 @@ namespace Checkers.Services
             };
         }
 
-        public static string GetOpponentId(Guid gameId, Player yourColor)
+        public static string GetUserId(Guid gameId, Player color)
         {
-            return GameRepository.Instance.getUser(gameId, yourColor);
+            return GameRepository.Instance.getUser(gameId, color);
         }
 
         public static Guid GetGameId(string userId)
