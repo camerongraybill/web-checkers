@@ -15,7 +15,7 @@ namespace Checkers.Test.Services
         public void startGameTest()
         {
             Guid id = Guid.NewGuid();
-            var actual = GameManagerService.StartGame(id, Player.BLACK);
+            var actual = GameManagerService.StartGame(id, Player.BLACK, "");
             Assert.Equal(Player.BLACK, actual.player);
         }
 

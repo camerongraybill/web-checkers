@@ -24,7 +24,7 @@ namespace Checkers.DAL
         }
 
         private static Dictionary<Guid, Game> gameStore = new Dictionary<Guid, Game>();
-        private static Dictionary<String, (Guid, Player)> userStore = new Dictionary<String, (Guid, Player)>();
+        private static Dictionary<(Guid, Player), string> userStore = new Dictionary<(Guid, Player), string>();
 
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -44,14 +44,16 @@ namespace Checkers.DAL
             gameStore[gameId] = game;
         }
 
-        public (Guid, Player) getUser(string userId)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public string getUser(Guid gameId, Player yourColor)
         {
-            return userStore[userId];
+            return userStore[(gameId, yourColor)];
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void addUser(string userId, Guid gameId, Player player)
         {
-            userStore[userId] = (gameId, player);
+            userStore[(gameId, player)] = userId;
         }
 
     }

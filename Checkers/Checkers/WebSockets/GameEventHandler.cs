@@ -47,7 +47,7 @@ namespace Checkers.WebSockets
             gameId = gameInfo.Item1;
             color = gameInfo.Item2;
 
-            var response = GameManagerService.StartGame(gameId, color);
+            var response = GameManagerService.StartGame(gameId, color, "userID");
             await Clients.Caller.SendAsync("gameStart", response.Serialize());
             if (color == Player.BLACK)
             {

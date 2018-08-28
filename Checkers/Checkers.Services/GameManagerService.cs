@@ -9,14 +9,20 @@ namespace Checkers.Services
     public static class GameManagerService
     {
 
-        public static StartGameDTO StartGame(Guid gameId, Player player)
+        public static StartGameDTO StartGame(Guid gameId, Player player, String userId)
         {
+            GameRepository.Instance.addUser(userId, gameId, player);
             Game game = GameRepository.Instance.getGame(gameId);
             return new StartGameDTO()
             {
                 board = game.board,
                 player = player
             };
+        }
+
+        public static string GetOpponentId(Guid gameId, Player yourColor)
+        {
+            return GameRepository.Instance.getUser(gameId, yourColor);
         }
 
 
