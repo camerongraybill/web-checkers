@@ -86,10 +86,10 @@ namespace Checkers.Services
                 Piece = game.board.Get(action.moveFrom.Item1, action.moveFrom.Item2)
             };
 
-            if (!AvailableMoveService.GetMoves(game.board, game.turn).Contains(move))
+            /*if (!AvailableMoveService.GetMoves(game.board, game.turn).Contains(move))
             {
                 throw new ArgumentOutOfRangeException("Invalid move");
-            }
+            } */
 
             game.board.ApplyMove(move);
 
@@ -104,7 +104,15 @@ namespace Checkers.Services
             }
 
             //---Check for forced jump moves---
-            var jumpMoves = AvailableMoveService.GetJumpMoves(game.board, move.Piece);
+            var jumpMoves = new List<Move>();
+            var to = action.moveTo;
+            var loc = action.moveFrom;
+
+            if (Math.Abs(loc.Item1 - to.Item1) == 2 &&
+                Math.Abs(loc.Item2 - to.Item2) == 2)
+            {
+                jumpMoves = AvailableMoveService.GetJumpMoves(game.board, move.Piece);
+            }
 
             if (jumpMoves.Count == 0)
             {
