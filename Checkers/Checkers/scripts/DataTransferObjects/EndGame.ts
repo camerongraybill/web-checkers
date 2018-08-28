@@ -1,8 +1,8 @@
 export class EndGame {
 
     public static decode(raw: string): EndGame {
-        const response_json = JSON.parse(raw);
-        return new EndGame(response_json.winner,  response_json.reason);
+        const responseJson = JSON.parse(raw);
+        return new EndGame(responseJson.winner,  responseJson.reason);
     }
     public readonly winner: number;
     public readonly reason: number;

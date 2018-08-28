@@ -30,7 +30,6 @@ namespace Checkers.WebSockets
 
         public async Task onMove(string move_resonse)
         {
-            Console.Write("ADAM RECIEVED:  " + move_resonse);
             var response = GameManagerService.TakeTurn(gameId, ActionDTO.Deserialize(move_resonse));
             if (response is EndGameDTO)
             {

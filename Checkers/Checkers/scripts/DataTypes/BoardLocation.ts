@@ -4,67 +4,67 @@ import {Piece} from "./Piece";
 export class BoardLocation {
 
     set selected(value: boolean) {
-        this._selected = value;
+        this.innerSelected = value;
         this.redraw();
     }
 
     set dom_location(value: HTMLDivElement) {
-        this._dom_location = $(value);
-        this._dom_location.on("click", () => {
-            if (this._callback) {
-                console.log(this.location);
-                this._callback(this);
+        this.innerDomLocation = $(value);
+        this.innerDomLocation.on("click", () => {
+            if (this.callback) {
+                this.callback(this);
             }
         });
     }
 
     set highlighted(value: boolean) {
-        this._highlighted = value;
+        this.innerHighlight = value;
         this.redraw();
     }
 
     get value(): Piece | null {
-        return this._value;
+        return this.innerValue;
     }
 
     set value(value: Piece | null) {
-        this._value = value;
+        this.innerValue = value;
         this.redraw();
     }
 
     public readonly location: [number, number];
 
-    private _value: Piece | null = null;
-    private _highlighted: boolean = false;
-    private _selected: boolean = false;
-    private _dom_location: JQuery<HTMLDivElement> = $();
+    private innerValue: Piece | null = null;
+    private innerHighlight: boolean = false;
+    private innerSelected: boolean = false;
+    private innerDomLocation: JQuery<HTMLDivElement> = $();
 
     constructor(location: [number, number]) {
         this.location = location;
     }
 
-    public registerOnClick(callback: Function): void {
-        this._callback = callback;
+    public registerOnClick(callback: (me: BoardLocation) => void): void {
+        this.callback = callback;
     }
 
     private redraw() {
-        if (this._highlighted) {
-            this._dom_location.addClass("availableSquare");
+        if (this.innerHighlight) {
+            this.innerDomLocation.addClass("availableSquare");
         } else {
-            this._dom_location.removeClass("availableSquare");
+            this.innerDomLocation.removeClass("availableSquare");
         }
-        if (this._value == null) {
-            this._dom_location.html("");
+        if (this.innerValue == null) {
+            this.innerDomLocation.html("");
         } else {
-            const dom_value = this._value.toDomElement();
-            if (this._selected) {
-                dom_value.addClass("activePiece");
+            const domValue = this.innerValue.toDomElement();
+            if (this.innerSelected) {
+                domValue.addClass("activePiece");
             }
-            this._dom_location.html("");
-            this._dom_location.append(dom_value);
+            this.innerDomLocation.html("");
+            this.innerDomLocation.append(domValue);
         }
 
     }
-    private _callback: Function = () => {};
+
+    private callback: (me: BoardLocation) => void = () => null;
 
 }

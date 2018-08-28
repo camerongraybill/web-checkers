@@ -3,5 +3,5 @@ export enum Color {
 }
 
 export enum GameEndReason {
-    OPPONENT_DISCONNECT, GAME_OVER,
+    GAME_OVER, OPPONENT_DISCONNECT,
 }
