@@ -139,8 +139,31 @@ namespace Checkers.Test.Services
         [Fact]
         public void getUserIDTest()
         {
+            Guid id = Guid.NewGuid();
+            var actual = GameManagerService.StartGame(id, Player.BLACK, "Adam");
+            Assert.Equal(Player.BLACK, actual.player);
 
+            Assert.Equal("Adam", GameManagerService.GetUserId(id, Player.BLACK));
         }
 
+        [Fact]
+        public void getGameIDTest()
+        {
+            Guid id = Guid.NewGuid();
+            var actual = GameManagerService.StartGame(id, Player.BLACK, "Adam");
+            Assert.Equal(Player.BLACK, actual.player);
+
+            Assert.Equal(id, GameManagerService.GetGameId("Adam"));
+        }
+
+        [Fact]
+        public void getColorTest()
+        {
+            Guid id = Guid.NewGuid();
+            var actual = GameManagerService.StartGame(id, Player.BLACK, "Adam");
+            Assert.Equal(Player.BLACK, actual.player);
+
+            Assert.Equal(Player.BLACK, GameManagerService.GetColor("Adam"));
+        }
     }
 }
