@@ -1,15 +1,15 @@
 export class StartGame {
 
     public static decode(raw: string): StartGame {
-        const response_json: any = JSON.parse(raw);
+        const responseJson: any = JSON.parse(raw);
 
-        return new StartGame(response_json.player, response_json.board);
+        return new StartGame(responseJson.player, responseJson.board);
     }
     public readonly color: number;
-    public readonly raw_board: any;
+    public readonly rawBoard: any;
 
-    constructor(color: number, raw_board: any) {
+    constructor(color: number, rawBoard: any) {
         this.color = color;
-        this.raw_board = raw_board;
+        this.rawBoard = rawBoard;
     }
 }

@@ -5,9 +5,9 @@ export class Piece {
     public readonly color: Color;
     public promoted: boolean;
 
-    constructor(color: Color, is_promoted: boolean) {
+    constructor(color: Color, isPromoted: boolean) {
         this.color = color;
-        this.promoted = is_promoted;
+        this.promoted = isPromoted;
     }
 
     public toDomElement(): JQuery<HTMLElement> {

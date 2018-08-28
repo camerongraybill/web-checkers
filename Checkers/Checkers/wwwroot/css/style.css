@@ -199,11 +199,6 @@ body {
   border-left: 10px solid white;
 }
 
-.gameCodeInput::placeholder {
-    color: white;
-    opacity: 0.2;
-}
-
 /*     Container Styles     */
 
 .mainContainer {

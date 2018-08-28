@@ -8,7 +8,6 @@ export class Action {
     }
 
     public encode(): string {
-        console.log(this);
         return JSON.stringify({from: this.from, to: this.to});
     }
 }
