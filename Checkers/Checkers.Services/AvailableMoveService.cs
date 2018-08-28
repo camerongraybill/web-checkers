@@ -51,7 +51,7 @@ namespace Checkers.Services
         /// <param name="board">Game Board</param>
         /// <param name="move">Move to be applied</param>
         /// <returns></returns>
-        private static bool isValidMove(Board board, Move move)
+        public static bool isValidMove(Board board, Move move)
         {
             var curLoc = move.Piece.Location;
             //Check all are in bounds

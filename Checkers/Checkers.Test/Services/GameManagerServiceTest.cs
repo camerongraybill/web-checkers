@@ -100,13 +100,40 @@ namespace Checkers.Test.Services
 
             var actual = GameManagerService.TakeTurn(id, new ActionDTO()
             {
-                moveFrom = Tuple.Create(3,2),
-                moveTo = Tuple.Create(4,3)
+                moveFrom = Tuple.Create(3, 2),
+                moveTo = Tuple.Create(4, 3)
             });
 
-            Assert.Null(((TurnDTO)actual).board.Get(3,2));
+            Assert.Null(((TurnDTO)actual).board.Get(3, 2));
             Assert.True(((TurnDTO)actual).board.Get(4, 3).Player == Player.BLACK);
             Assert.Empty(((TurnDTO)actual).moves);
+        }
+
+        [Fact]
+        public void takeTurnEndGameTest()
+        {
+            Guid id = Guid.NewGuid();
+            var board = new Board();
+            board.Set(0, 0, new Piece()
+            {
+                IsKing = false,
+                Location = Tuple.Create(0, 0),
+                Player = Player.BLACK
+            });
+
+            GameRepository.Instance.update(id, new Game()
+            {
+                turn = Player.BLACK,
+                board = board
+            });
+
+            var actual = GameManagerService.TakeTurn(id, new ActionDTO()
+            {
+                moveFrom = Tuple.Create(0, 0),
+                moveTo = Tuple.Create(1, 1)
+            });
+            Assert.True(((EndGameDTO)actual).reason == EndReason.GAME_OVER);
+            Assert.True(((EndGameDTO)actual).winner == Player.BLACK);
         }
 
     }

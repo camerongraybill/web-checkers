@@ -136,6 +136,51 @@ namespace Checkers.Test.Services
             Assert.Equal(Player.BLACK, AvailableMoveService.GetWinner(board));
         }
 
+        [Fact]
+        public void isValidMoveEmptyMoveTest()
+        {
+            var board = new Board();
+            board.Set(3, 2, new Piece()
+            {
+                IsKing = false,
+                Location = Tuple.Create(3, 2),
+                Player = Player.BLACK
+            });
+
+
+
+            Assert.False(AvailableMoveService.isValidMove(board, new Move()
+            {
+                MoveTo = Tuple.Create(0,0),
+                Piece = new Piece()
+                {
+                    Location = Tuple.Create(0, 0)
+                }
+            }));
+        }
+
+
+        [Fact]
+        public void isValidMoveNotMatchingTest()
+        {
+            var board = new Board();
+            board.Set(3, 2, new Piece()
+            {
+                IsKing = false,
+                Location = Tuple.Create(3, 2),
+                Player = Player.BLACK
+            });
+
+            Assert.False(AvailableMoveService.isValidMove(board, new Move()
+            {
+                MoveTo = Tuple.Create(4, 3),
+                Piece = new Piece()
+                {
+                    Player = Player.RED,
+                    Location = Tuple.Create(3, 2)
+                }
+            }));
+        }
 
     }
 }

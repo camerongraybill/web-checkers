@@ -111,7 +111,7 @@ namespace Checkers.Services
             if (Math.Abs(loc.Item1 - to.Item1) == 2 &&
                 Math.Abs(loc.Item2 - to.Item2) == 2)
             {
-                jumpMoves = AvailableMoveService.GetJumpMoves(game.board, move.Piece);
+                jumpMoves = AvailableMoveService.GetJumpMoves(game.board, game.board.Get(to.Item1, to.Item2));
             }
 
             if (jumpMoves.Count == 0)

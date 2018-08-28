@@ -55,7 +55,7 @@ namespace Checkers.Test.Services
             t1.Start();
 
             int i = 0;
-            while(!t1.ThreadState.Equals(ThreadState.WaitSleepJoin))
+            do
             {
                 i++;
                 Thread.Sleep(1);
@@ -63,7 +63,7 @@ namespace Checkers.Test.Services
                 {
                     Assert.True(false, "Hit timeout, thread not waiting");
                 }
-            }
+            } while (!t1.ThreadState.Equals(ThreadState.WaitSleepJoin));
         }
 
 
