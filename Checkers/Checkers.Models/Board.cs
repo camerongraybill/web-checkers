@@ -34,8 +34,7 @@ namespace Checkers.Models
                 //null the jumped piece
                 Set(loc.Item1 + ((to.Item1 - loc.Item1) / 2), loc.Item2 + ((to.Item2 - loc.Item2) / 2), null);
             }
-            //null old location
-            Set(loc.Item1, loc.Item2, null);
+
 
             //----Check Kings----
             if ((move.Piece.Player == Player.BLACK && to.Item2 == 7) ||
@@ -45,8 +44,16 @@ namespace Checkers.Models
             }
 
             //set new location
-            move.Piece.Location = to;
-            Set(to.Item1, to.Item2, move.Piece);
+            Set(to.Item1, to.Item2, new Piece()
+            {
+                IsKing = boardPiece.IsKing,
+                Location = to,
+                Player = boardPiece.Player
+            });
+
+
+            //null old location
+            Set(loc.Item1, loc.Item2, null);
         }
 
         public Piece Get(int x, int y)

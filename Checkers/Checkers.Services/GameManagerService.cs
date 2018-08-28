@@ -86,10 +86,10 @@ namespace Checkers.Services
                 Piece = game.board.Get(action.moveFrom.Item1, action.moveFrom.Item2)
             };
 
-            /*if (!AvailableMoveService.GetMoves(game.board, game.turn).Contains(move))
+            if (!AvailableMoveService.GetMoves(game.board, game.turn).Contains(move))
             {
                 throw new ArgumentOutOfRangeException("Invalid move");
-            } */
+            }
 
             game.board.ApplyMove(move);
 

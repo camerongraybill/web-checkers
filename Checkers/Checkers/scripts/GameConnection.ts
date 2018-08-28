@@ -87,6 +87,7 @@ export class GameConnection {
     private on_your_turn(data: Turn): void {
         this.board.updateFromOtherBoard(Board.fromJSON(data.raw_board));
         const possible_moves = data.raw_moves.map((raw_move_str: any) => Move.fromJSON(raw_move_str, this.board));
+        console.log("CAM RECIEVED:  ", possible_moves);
         $("#oTeam").addClass("activePlayer");
         this.board.legal_moves = possible_moves;
     }
