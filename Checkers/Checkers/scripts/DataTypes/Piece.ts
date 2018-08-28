@@ -1,4 +1,5 @@
 import {Color} from "./Enums";
+import $ = require("jquery");
 
 export class Piece {
     public readonly color: Color;
@@ -9,8 +10,19 @@ export class Piece {
         this.promoted = is_promoted;
     }
 
-    get asHTML(): string {
-        // TODO: Implement this
-        return "";
+    public toDomElement(): JQuery<HTMLElement> {
+        const checker = $("<div class='boardChecker'></div>");
+        switch (this.color) {
+            case Color.BLACK: checker.addClass("blackChecker"); break;
+            case Color.RED: checker.addClass("whiteChecker"); break;
+        }
+        if (this.promoted) {
+            switch (this.color) {
+                case Color.BLACK: checker.addClass("blackKing"); break;
+                case Color.RED: checker.addClass("whiteKing"); break;
+            }
+        }
+        
+        return checker;
     }
 }

@@ -26,7 +26,7 @@ namespace Checkers.Services
         /// <param name="gameId"></param>
         /// <param name="player"></param>
         /// <returns></returns>
-        public static IOutgoingMessage StartTurn(Guid gameId, Player player)
+        public static OutgoingMessage StartTurn(Guid gameId, Player player)
         {
             Game game = GameRepository.Instance.getGame(gameId);
 
@@ -59,7 +59,7 @@ namespace Checkers.Services
         /// <param name="gameId"></param>
         /// <param name="move"></param>
         /// <returns></returns>
-        public static IOutgoingMessage TakeTurn(Guid gameId, ActionDTO action)
+        public static OutgoingMessage TakeTurn(Guid gameId, ActionDTO action)
         {
             Game game = GameRepository.Instance.getGame(gameId);
             Move move = new Move()

@@ -9,7 +9,7 @@ var del = require('del');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var tsify = require('tsify');
-var tsconfig = require("./scripts/tsconfig.json");
+var tsconfig = require("./tsconfig.json");
 
 
 var OUTPUT_PATH = 'wwwroot/js';
@@ -19,16 +19,15 @@ var paths = {
 };
 
 gulp.task('clean', function () {
-    return del([OUTPUT_PATH]);
+    return del([OUTPUT_PATH + "/bundle.js"]);
 });
 
 gulp.task('default', function () {
     return browserify({
         basedir: '.',
         debug: true,
-        entries: tsconfig.files.map(function (item) {return item.replace("./", "./scripts/")}),
+        entries: tsconfig.files,
         cache: {},
         packageCache: {}
     }).plugin(tsify, tsconfig.compilerOptions).bundle().pipe(source('bundle.js')).pipe(gulp.dest(OUTPUT_PATH));
-    //gulp.src(paths.scripts).pipe(gulp.dest(OUTPUT_PATH))
 });

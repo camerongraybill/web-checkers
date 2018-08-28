@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Checkers.WebSockets;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -33,6 +34,7 @@ namespace Checkers
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,19 +51,20 @@ namespace Checkers
             }
 
             app.UseHttpsRedirection();
-            DefaultFilesOptions options = new DefaultFilesOptions();
-            options.DefaultFileNames.Clear();
-            options.DefaultFileNames.Add("index.html");
-            app.UseDefaultFiles(options);
+            var fileOptions = new DefaultFilesOptions();
+            fileOptions.DefaultFileNames.Clear();
+            fileOptions.DefaultFileNames.Add("index.html");
+            app.UseDefaultFiles(fileOptions);
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSignalR(signalROptions => { signalROptions.MapHub<GameEventHandler>("/game"); });
 
-//            app.UseMvc(routes =>
-//            {
-//                routes.MapRoute(
-//                    name: "default",
-//                    template: "{controller=Home}/{action=Index}/{id?}");
-//            });
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }

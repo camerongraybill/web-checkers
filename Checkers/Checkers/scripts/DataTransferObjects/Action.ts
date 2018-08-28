@@ -8,7 +8,6 @@ export class Action {
     }
 
     public encode(): string {
-        // TODO: This
-        return "";
+        return JSON.stringify({from: this.from.reverse(), to: this.to.reverse()});
     }
 }

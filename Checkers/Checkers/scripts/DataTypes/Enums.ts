@@ -1,5 +1,5 @@
 export enum Color {
-    BLACK, RED,
+    RED, BLACK,
 }
 
 export enum GameEndReason {

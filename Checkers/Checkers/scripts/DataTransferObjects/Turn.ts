@@ -1,13 +1,15 @@
 export class Turn {
 
     public static decode(raw: string): Turn {
-        // TODO: This
-        return null;
+        console.log(raw);
+        const turn_json = JSON.parse(raw);
+        console.log(turn_json);
+        return new Turn(turn_json.board, turn_json.moves);
     }
-    public readonly raw_board: string;
-    public readonly raw_moves: string[];
+    public readonly raw_board: any;
+    public readonly raw_moves: any[];
 
-    constructor(raw_board: string, raw_moves: string[]) {
+    constructor(raw_board: any, raw_moves: any[]) {
         this.raw_board = raw_board;
         this.raw_moves = raw_moves;
     }

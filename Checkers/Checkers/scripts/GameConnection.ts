@@ -50,7 +50,7 @@ export class GameConnection {
         this.connection.on("gameStart", (data: string) => this.on_game_start(StartGame.decode(data)));
         this.connection.on("yourMove", (data: string) => this.on_your_turn(Turn.decode(data)));
         this.connection.on("gameEnd", (data: string) => this.on_game_end(EndGame.decode(data)));
-        this.board.on_move_callback = this.sendMove;
+        this.board.on_move_callback = (from: BoardLocation, to: BoardLocation) => this.sendMove(from, to);
     }
 
     private on_game_end(data: EndGame): void {
@@ -78,19 +78,21 @@ export class GameConnection {
         else {
             $("#totalContainer").addClass("hiddenPage closedPage");
             $("#gamePage").removeClass("hiddenPage closedPage");
-            this.board.updateFromOtherBoard(Board.fromString(data.raw_board));
+            const new_board: Board = Board.fromJSON(data.raw_board);
+            this.board.updateFromOtherBoard(new_board);
             this.my_color = data.color;
         }
     }
 
     private on_your_turn(data: Turn): void {
-        this.board.updateFromOtherBoard(Board.fromString(data.raw_board));
-        const possible_moves = data.raw_moves.map((raw_move_str: String) => Move.fromString(raw_move_str, this.board));
-        // TODO: Something about filtering what can be selected on the board by looking at the possible moves?
-
+        this.board.updateFromOtherBoard(Board.fromJSON(data.raw_board));
+        const possible_moves = data.raw_moves.map((raw_move_str: any) => Move.fromJSON(raw_move_str, this.board));
+        $("#oTeam").addClass("activePlayer");
+        this.board.legal_moves = possible_moves;
     }
 
     private sendMove(from: BoardLocation, to: BoardLocation): void {
         this.connection.send("onMove", (new Action(from.location, to.location)).encode());
+        $("#oTeam").removeClass("activePlayer");
     }
 }
