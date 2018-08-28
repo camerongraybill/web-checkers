@@ -71,6 +71,9 @@ export class GameConnection {
 
     private on_game_start(data: StartGame): void {
         if (this.innerMyColor === null) {
+            if (data.color === Color.BLACK) {
+                $("#board").addClass("rotateBoard");
+            }
             $("#totalContainer").addClass("hiddenPage closedPage");
             $("#gamePage").removeClass("hiddenPage closedPage");
             this.board.updateFromOtherBoard(Board.fromJSON(data.rawBoard));

@@ -358,6 +358,10 @@ body {
   flex-direction: column;
 }
 
+.rotateBoard {
+  transform: rotate(180deg);
+}
+
 .boardRow {
   width: 100%;
 
