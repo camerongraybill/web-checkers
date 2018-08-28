@@ -16,8 +16,8 @@ namespace Checkers.Models
             dynamic response = JObject.Parse(raw);
             return new ActionDTO()
             {
-                moveFrom = Tuple.Create(response["from"][0], response["from"][1]),
-                moveTo = Tuple.Create(response["to"][0], response["to"][1])
+                moveFrom = Tuple.Create((int)response["from"][0], (int)response["from"][1]),
+                moveTo = Tuple.Create((int)response["to"][0], (int)response["to"][1])
             };
         }
 

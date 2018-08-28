@@ -3,6 +3,15 @@ import {Piece} from "./Piece";
 import {Move} from "./Move";
 
 export class Board {
+    get legal_moves(): Move[] {
+        return this._legal_moves;
+    }
+
+    set legal_moves(value: Move[]) {
+        this._legal_moves = value;
+        this.clearHighlights();
+        this.highlightLegalStarts();
+    }
 
     set on_move_callback(value: Function) {
         this._on_move_callback = value;
@@ -13,12 +22,11 @@ export class Board {
         board.Pieces.filter((board_location: any) => board_location).forEach((board_location: any) => {
             new_board.state[board_location.Location.Item2][board_location.Location.Item1].value = new Piece(board_location.Player, board_location.IsKing);
         });
-        console.log(new_board);
         return new_board;
     }
 
     public state: BoardLocation[][];
-    public legal_moves: Move[] = [];
+    private _legal_moves: Move[] = [];
     private _on_move_callback: Function;
     private last_clicked: BoardLocation | null = null;
 
@@ -49,6 +57,10 @@ export class Board {
         }
     }
 
+    private highlightLegalStarts() {
+        this._legal_moves.map((item: Move) => item.source).forEach((item: BoardLocation) => item.highlighted = true);
+    }
+
     private onBoardClick(location: BoardLocation) {
         // do something because of a click, sometimes call self._on_move_callback
         if (this.last_clicked !== null) {
@@ -58,25 +70,34 @@ export class Board {
                 this.last_clicked.selected = false;
                 this.last_clicked = null;
                 this.clearHighlights();
+                this.highlightLegalStarts();
             } else {
                 // Different piece is selected
-                const possible_destinations = this.legal_moves.filter((item: Move) => item.source === this.last_clicked).map((item: Move) => item.destination);
+                const possible_destinations = this._legal_moves.filter((item: Move) => item.source === this.last_clicked).map((item: Move) => item.destination);
                 if (possible_destinations.indexOf(location) !== -1) {
                     // This is a legal move to move to
                     this._on_move_callback(this.last_clicked, location);
+                    if (Math.abs(this.last_clicked.location[0] - location.location[0]) === 2) {
+                        // It was a jump so remove the jumped piece
+                        this.state[(this.last_clicked.location[0] + ((location.location[0] - this.last_clicked.location[0]) / 2))][(this.last_clicked.location[1] + ((location.location[1] - this.last_clicked.location[1]) / 2))].value = null;
+                    }
+                    // Move the piece
+                    location.value = this.last_clicked.value;
+                    // Null out the moved from location
+                    this.last_clicked.value = null;
+                    this.last_clicked = null;
                     this.clearHighlights();
                 }
             }
         } else {
             // There is no piece selected
             this.clearHighlights();
-            const possible_sources = this.legal_moves.map((item: Move) => item.source);
-            console.log(possible_sources, location);
+            const possible_sources = this._legal_moves.map((item: Move) => item.source);
             if (possible_sources.indexOf(location) !== -1) {
                 // If it is a valid starting piece
                 this.last_clicked = location;
                 // Highlight possible destinations
-                this.legal_moves.filter((item: Move) => item.source === this.last_clicked)
+                this._legal_moves.filter((item: Move) => item.source === this.last_clicked)
                     .map((item: Move) => item.destination)
                     .forEach((item: BoardLocation) => item.highlighted = true);
             }

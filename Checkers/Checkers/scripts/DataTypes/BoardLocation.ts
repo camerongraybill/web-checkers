@@ -30,7 +30,7 @@ export class BoardLocation {
         this._value = value;
         this.redraw()
     }
-    
+
     private redraw() {
         if (this._highlighted) {
             this._dom_location.addClass("availableSquare");
@@ -47,8 +47,9 @@ export class BoardLocation {
             this._dom_location.html("");
             this._dom_location.append(dom_value);
         }
-        
+
     }
+
     public readonly location: [number, number];
 
     private _value: Piece | null = null;

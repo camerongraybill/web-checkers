@@ -1,29 +1,42 @@
 ﻿using Checkers.Models;
 using Checkers.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
-using Newtonsoft.Json;
 
 namespace Checkers.WebSockets
 {
     public class GameEventHandler : Hub
     {
-        Guid gameId;
-        Player color;
+        private Guid gameId
+        {
+            get { return GameManagerService.GetGameId(Context.ConnectionId); }
+        }
 
-        //TODO: add SignalR nonsense here
-        //TODO: can we have instance members here?
-        //some how send messages to other clients? unless we go back to my monitor thingy?
+        private Player color
+        {
+            get { return GameManagerService.GetColor(Context.ConnectionId);  }
+        }
+
+        private string OpponentId
+        {
+            get { return GameManagerService.GetUserId(gameId, OpponentColor); }
+        }
+
+        private Player OpponentColor
+        {
+            get { return color == Player.BLACK ? Player.RED : Player.BLACK; }
+        }
 
         public async Task onMove(string move_resonse)
         {
+            
             var response = GameManagerService.TakeTurn(gameId, ActionDTO.Deserialize(move_resonse));
             if (response is EndGameDTO)
             {
-                
+                var casted_response = (EndGameDTO) response;
+                await Clients.Clients(Context.ConnectionId, OpponentId)
+                    .SendAsync("gameEnd", casted_response.Serialize());
             }
             else
             {
@@ -34,25 +47,33 @@ namespace Checkers.WebSockets
                 }
                 else
                 {
-                    
+                    await Clients.Client(OpponentId)
+                        .SendAsync("yourMove", GameManagerService.StartTurn(gameId, OpponentColor).Serialize());
                 }
             }
-            
+        }
 
-        } 
-
+        public override async Task OnDisconnectedAsync(Exception exception)
+        {
+            await Clients.Client(OpponentId).SendAsync("gameEnd", new EndGameDTO()
+            {
+                reason = EndReason.OPPONENT_DISCONNECT,
+                winner = OpponentColor
+            }.Serialize());
+            await base.OnDisconnectedAsync(exception);
+        }
+        
         public override async Task OnConnectedAsync()
         {
             var gameInfo = QueueService.Instance.MatchGame();
-            gameId = gameInfo.Item1;
-            color = gameInfo.Item2;
 
-            var response = GameManagerService.StartGame(gameId, color, "userID");
+            var response = GameManagerService.StartGame(gameInfo.Item1, gameInfo.Item2, Context.ConnectionId);
             await Clients.Caller.SendAsync("gameStart", response.Serialize());
             if (color == Player.BLACK)
             {
                 await Clients.Caller.SendAsync("yourMove", GameManagerService.StartTurn(gameId, color).Serialize());
             }
+
             await base.OnConnectedAsync();
         }
     }
