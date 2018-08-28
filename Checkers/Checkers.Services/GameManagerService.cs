@@ -25,6 +25,15 @@ namespace Checkers.Services
             return GameRepository.Instance.getUser(gameId, yourColor);
         }
 
+        public static Guid GetGameId(string userId)
+        {
+            return GameRepository.Instance.getGameId(userId).Item1;
+        }
+
+        public static Player GetColor(string userId)
+        {
+            return GameRepository.Instance.getGameId(userId).Item2;
+        }
 
         /// <summary>
         /// If it is the players turn it returns a TurnDTO with the available moves
